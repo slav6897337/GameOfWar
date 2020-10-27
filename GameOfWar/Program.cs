@@ -18,10 +18,10 @@ namespace GameOfWar
         /// <param name="args">Console param.</param>
         public static void Main(string[] args)
         {
-            Fraction orcs = new Fraction("Orcs");
-            Fraction elves = new Fraction("Elves");
-            orcs.Report();
-            elves.Report();
+            Battle battle = new Battle();
+            battle.PVP();
+            battle.Elves.Report();
+            battle.Orcs.Report();
         }
     }
 }
