@@ -15,22 +15,59 @@ namespace GameOfWar
         /// <summary>
         /// Initializes a new instance of the <see cref="Squad"/> class.
         /// </summary>
-        public Squad()
+        /// <param name="nameSquad">Name Squad.</param>
+        /// <param name="quantityWarriors">Quantity Warriors in squad.</param>
+        public Squad(string nameSquad, int quantityWarriors)
         {
-            for (int i = 0; i < 10; i++)
+            NameSquad = nameSquad;
+            Random rand = new Random();
+            int temp = rand.Next(0, quantityWarriors);
+            int bers = temp;
+            int prist = temp;
+            int mag = temp;
+            int shield = temp;
+            while (bers == prist)
             {
+                temp = rand.Next(0, quantityWarriors);
+                prist = temp;
+            }
+
+            while (bers == mag || prist == mag)
+            {
+                temp = rand.Next(0, quantityWarriors);
+                mag = temp;
+            }
+
+            while (bers == shield || prist == shield || mag == shield)
+            {
+                temp = rand.Next(0, quantityWarriors);
+                shield = temp;
+            }
+
+            for (int i = 0; i < quantityWarriors; i++)
+            {
+                if (i == bers)
+                {
+                    Warriors.Add(new BerserkWarrior());
+                }
+
+                if (i == prist)
+                {
+                    Warriors.Add(new PriestWarrior());
+                }
+
+                if (i == mag)
+                {
+                    Warriors.Add(new MagWarrior());
+                }
+
+                if (i == shield)
+                {
+                    Warriors.Add(new ShieldWarrior());
+                }
+
                 Warriors.Add(new Warrior());
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Squad"/> class.
-        /// </summary>
-        /// <param name="name">Name Squad.</param>
-        public Squad(string name)
-            : this()
-        {
-            NameSquad = name;
         }
 
         /// <summary>

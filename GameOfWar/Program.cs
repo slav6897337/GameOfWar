@@ -18,10 +18,15 @@ namespace GameOfWar
         /// <param name="args">Console param.</param>
         public static void Main(string[] args)
         {
-            Battle battle = new Battle();
-            battle.PVP();
-            battle.Elves.Report();
-            battle.Orcs.Report();
+            Console.WriteLine("Please enter number squads in Fraction");
+            int numberSquards = int.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter number Warriors in Squad");
+            int numberWarriors = int.Parse(Console.ReadLine());
+
+            Battle battle = new Battle(numberSquards, numberWarriors);
+            battle.BattleSquadVsSquad();
+           /* battle.Elves.Report();
+            battle.Orcs.Report();*/
         }
     }
 }

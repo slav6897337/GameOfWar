@@ -15,20 +15,18 @@ namespace GameOfWar
         /// <summary>
         /// Initializes a new instance of the <see cref="Fraction"/> class.
         /// </summary>
-        public Fraction()
-        {
-            Squads.Add(new Squad("squard1"));
-            Squads.Add(new Squad("squard2"));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Fraction"/> class.
-        /// </summary>
         /// <param name="name">Name Fraction.</param>
-        public Fraction(string name)
-            : this()
+        /// <param name="numberSquads">Number Squads.</param>
+        /// <param name="numberWarriors">Number Warriors.</param>
+        public Fraction(string name, int numberSquads, int numberWarriors)
         {
             NameFraction = name;
+
+            for (int i = 0; i < numberSquads; i++)
+            {
+                string nameSquad = Console.ReadLine();
+                Squads.Add(new Squad(nameSquad, numberWarriors));
+            }
         }
 
         /// <summary>

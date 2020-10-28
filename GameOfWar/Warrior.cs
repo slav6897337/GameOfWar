@@ -22,7 +22,7 @@ namespace GameOfWar
             Random rnd = new Random();
 
             Health = 50 + rnd.Next(1, 30);
-            Attack = 6 + rnd.Next(1, 6);
+            AttackStrong = 6 + rnd.Next(1, 6);
             Strong = 1 + rnd.Next(0, 4);
             Name = GetNameWarior();
         }
@@ -40,7 +40,7 @@ namespace GameOfWar
         /// <summary>
         /// Gets or sets Attack Warrior.
         /// </summary>
-        public int Attack { get; set; }
+        public int AttackStrong { get; set; }
 
         /// <summary>
         /// Gets or sets Strong Warrior.
@@ -52,7 +52,62 @@ namespace GameOfWar
         /// </summary>
         public void Report()
         {
-            Console.WriteLine($"{Name,-16} Health:{Health}\tAttack:{Attack}\tStrong:{Strong}");
+            Console.WriteLine($"{Name,-16} Health:{Health}\tAttack:{AttackStrong}\tStrong:{Strong}");
+        }
+
+        /// <summary>
+        /// Method Attack.
+        /// </summary>
+        /// <param name="war2">Warrior who gets hurt.</param>
+        public virtual void Attack(Warrior war2)
+        {
+            Random rand = new Random();
+            int damage = rand.Next(1, AttackStrong) + Strong;
+            if (war2 is ShieldWarrior shieldWarrior)
+            {
+                if (shieldWarrior.State)
+                {
+                    war2.Health += damage;
+                    shieldWarrior.State = false;
+                }
+            }
+
+            war2.Health -= damage;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write($"{Name,-16} ");
+            Console.ResetColor();
+            Console.Write($" damage ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{damage,-3}");
+            Console.ResetColor();
+            Console.Write($" from ");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write($"{war2.Name,-16} ");
+            Console.ResetColor();
+            Console.Write($"who has left ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write($"{war2.Health,-3}");
+            Console.ResetColor();
+            Console.Write($"Health");
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Method Attack.
+        /// </summary>
+        /// <param name="war1">First Warrior who gets hurt.</param>
+        /// <param name="war2">Second Warrior who gets hurt.</param>
+        public virtual void Attack(Warrior war1, Warrior war2)
+        {
+        }
+
+        /// <summary>
+        /// Method Attack.
+        /// </summary>
+        /// <param name="war1">Warrior who gets hurt.</param>
+        /// <param name="squad">Squad in which consist.</param>
+        public virtual void Attack(Warrior war1, Squad squad)
+        {
         }
 
         private string GetNameWarior()
