@@ -24,17 +24,19 @@ namespace GameOfWar
         /// <summary>
         /// Method Attack.
         /// </summary>
-        /// <param name="war1">Warrior who gets hurt.</param>
-        /// <param name="squad">Enemy Squad.</param>
-        public override void Attack(Warrior war1, Squad squad)
+        /// <param name="war">Warrior who gets hurt.</param>
+        /// <param name="enemySquad">Enemy Squad.</param>
+        /// <param name="yourSquad">Squad in which consist.</param>
+        public override void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
+            Console.WriteLine("Mag");
             if (counter != 0)
             {
                 counter = counter == 3 ? (byte)0 : (byte)(counter + 1);
                 int minHealhth = 50;
                 int count = 0;
                 int wariorCount = 0;
-                foreach (var warior in squad.Warriors)
+                foreach (var warior in enemySquad.Warriors)
                 {
                     if (warior.Health < minHealhth)
                     {
@@ -45,48 +47,48 @@ namespace GameOfWar
                     count++;
                 }
 
-                Attack(squad.Warriors[wariorCount]);
+                base.Attack(enemySquad.Warriors[wariorCount], enemySquad, yourSquad);
             }
             else
             {
-                if (squad.Warriors.Count > 3)
+                if (enemySquad.Warriors.Count > 3)
                 {
                     int i = 0;
-                    for (; i < squad.Warriors.Count; i++)
+                    for (; i < enemySquad.Warriors.Count; i++)
                     {
-                        if (squad.Warriors[i] == war1)
+                        if (enemySquad.Warriors[i] == war)
                         {
                             break;
                         }
 
                         if (i == 0)
                         {
-                            Attack(squad.Warriors[0]);
-                            Attack(squad.Warriors[1]);
-                            Attack(squad.Warriors[2]);
+                            base.Attack(enemySquad.Warriors[0], enemySquad, yourSquad);
+                            base.Attack(enemySquad.Warriors[1], enemySquad, yourSquad);
+                            base.Attack(enemySquad.Warriors[2], enemySquad, yourSquad);
                             counter++;
                         }
-                        else if (i == squad.Warriors.Count - 1)
+                        else if (i == enemySquad.Warriors.Count - 1)
                         {
-                            Attack(squad.Warriors[i]);
-                            Attack(squad.Warriors[i - 1]);
-                            Attack(squad.Warriors[i - 2]);
+                            base.Attack(enemySquad.Warriors[i], enemySquad, yourSquad);
+                            base.Attack(enemySquad.Warriors[i - 1], enemySquad, yourSquad);
+                            base.Attack(enemySquad.Warriors[i - 2], enemySquad, yourSquad);
                             counter++;
                         }
                         else
                         {
-                            Attack(squad.Warriors[i]);
-                            Attack(squad.Warriors[i - 1]);
-                            Attack(squad.Warriors[i + 1]);
+                            base.Attack(enemySquad.Warriors[i], enemySquad, yourSquad);
+                            base.Attack(enemySquad.Warriors[i - 1], enemySquad, yourSquad);
+                            base.Attack(enemySquad.Warriors[i + 1], enemySquad, yourSquad);
                             counter++;
                         }
                     }
                 }
                 else
                 {
-                    foreach (var warrior in squad.Warriors)
+                    foreach (var warrior in enemySquad.Warriors)
                     {
-                        Attack(warrior);
+                        base.Attack(warrior, enemySquad, yourSquad);
                     }
 
                     counter++;

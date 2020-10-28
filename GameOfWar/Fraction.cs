@@ -24,6 +24,7 @@ namespace GameOfWar
 
             for (int i = 0; i < numberSquads; i++)
             {
+                Console.WriteLine("Please enter Name Squad");
                 string nameSquad = Console.ReadLine();
                 Squads.Add(new Squad(nameSquad, numberWarriors));
             }
@@ -49,6 +50,16 @@ namespace GameOfWar
             {
                 squad.Report();
             }
+        }
+
+        /// <summary>
+        /// Gets random squad.
+        /// </summary>
+        /// <returns>Squad.</returns>
+        public Squad GetRandomSquad()
+        {
+            Random rand = new Random();
+            return Squads[rand.Next(0, Squads.Count - 1)];
         }
     }
 }

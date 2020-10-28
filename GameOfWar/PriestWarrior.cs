@@ -22,13 +22,15 @@ namespace GameOfWar
         }
 
         /// <summary>
-        /// Method Heal.
+        /// Method Attack.
         /// </summary>
-        /// <param name="war">Squad in which consist.</param>
-        /// <param name="squad">Warrior who gets hurt.</param>
-        public override void Attack(Warrior war, Squad squad)
+        /// <param name="war">Warrior who gets hurt.</param>
+        /// <param name="enemySquad">Enemy Squad.</param>
+        /// <param name="yourSquad">Squad in which consist.</param>
+        public override void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
-            Attack(war);
+            Console.WriteLine("Priest");
+            base.Attack(war, enemySquad, yourSquad);
             if (counter != 0)
             {
                 counter = counter == 3 ? (byte)0 : (byte)(counter + 1);
@@ -38,7 +40,7 @@ namespace GameOfWar
                 int minHeath = 20;
                 int count = 0;
                 int warCount = 0;
-                foreach (var warrior in squad.Warriors)
+                foreach (var warrior in yourSquad.Warriors)
                 {
                     if (warrior.Health < minHeath)
                     {
@@ -51,7 +53,7 @@ namespace GameOfWar
 
                 if (minHeath < 20)
                 {
-                    squad.Warriors[warCount].Health += 60;
+                    yourSquad.Warriors[warCount].Health += 60;
                     counter++;
                 }
             }

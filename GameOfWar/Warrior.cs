@@ -58,21 +58,23 @@ namespace GameOfWar
         /// <summary>
         /// Method Attack.
         /// </summary>
-        /// <param name="war2">Warrior who gets hurt.</param>
-        public virtual void Attack(Warrior war2)
+        /// <param name="war">Warrior who gets hurt.</param>
+        /// <param name="enemySquad">Enemy Squad.</param>
+        /// <param name="yourSquad">Squad in which consist.</param>
+        public virtual void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
             Random rand = new Random();
             int damage = rand.Next(1, AttackStrong) + Strong;
-            if (war2 is ShieldWarrior shieldWarrior)
+            if (war is ShieldWarrior shieldWarrior)
             {
                 if (shieldWarrior.State)
                 {
-                    war2.Health += damage;
+                    war.Health += damage;
                     shieldWarrior.State = false;
                 }
             }
 
-            war2.Health -= damage;
+            war.Health -= damage;
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write($"{Name,-16} ");
             Console.ResetColor();
@@ -82,32 +84,14 @@ namespace GameOfWar
             Console.ResetColor();
             Console.Write($" from ");
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Write($"{war2.Name,-16} ");
+            Console.Write($"{war.Name,-16} ");
             Console.ResetColor();
             Console.Write($"who has left ");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"{war2.Health,-3}");
+            Console.Write($"{war.Health,-3}");
             Console.ResetColor();
             Console.Write($"Health");
             Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Method Attack.
-        /// </summary>
-        /// <param name="war1">First Warrior who gets hurt.</param>
-        /// <param name="war2">Second Warrior who gets hurt.</param>
-        public virtual void Attack(Warrior war1, Warrior war2)
-        {
-        }
-
-        /// <summary>
-        /// Method Attack.
-        /// </summary>
-        /// <param name="war1">Warrior who gets hurt.</param>
-        /// <param name="squad">Squad in which consist.</param>
-        public virtual void Attack(Warrior war1, Squad squad)
-        {
         }
 
         private string GetNameWarior()

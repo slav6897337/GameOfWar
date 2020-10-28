@@ -22,14 +22,18 @@ namespace GameOfWar
         /// <summary>
         /// Method Attack.
         /// </summary>
-        /// <param name="war1">First Warrior who gets hurt.</param>
-        /// <param name="war2">Second Warrior who gets hurt.</param>
-        public override void Attack(Warrior war1, Warrior war2)
+        /// <param name="war">Warrior who gets hurt.</param>
+        /// <param name="enemySquad">Enemy Squad.</param>
+        /// <param name="yourSquad">Squad in which consist.</param>
+        public override void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
-            Attack(war1);
+            Console.WriteLine("Berserk");
+            base.Attack(war, enemySquad, yourSquad);
+
+            Warrior war2 = enemySquad.GetRandomWarrior();
             if (war2.Health <= 10)
             {
-                Attack(war2);
+                base.Attack(war2, enemySquad, yourSquad);
             }
         }
     }

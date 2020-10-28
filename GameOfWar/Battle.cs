@@ -39,26 +39,26 @@ namespace GameOfWar
         /// </summary>
         public void BattleSquadVsSquad()
         {
-            Squad orc = Orcs.Squads[rand.Next(0, 1)];
-            Squad elv = Elves.Squads[rand.Next(0, 1)];
+            Squad orc = Orcs.GetRandomSquad();
+            Squad elv = Elves.GetRandomSquad();
 
             while (orc.Warriors.Count > 0 && elv.Warriors.Count > 0)
             {
                 for (int i = 0; i < orc.Warriors.Count && i < elv.Warriors.Count; i++)
                 {
-                    orc.Warriors[i].Attack(elv.Warriors[i]);
+                    orc.Warriors[i].Attack(elv.Warriors[i], elv, orc);
                     if (elv.Warriors[i].Health <= 0)
                     {
                         LostWarrior(elv.Warriors[i], Elves);
                         if (i + 1 < elv.Warriors.Count)
                         {
-                            elv.Warriors[i + 1].Attack(orc.Warriors[i]);
+                            elv.Warriors[i + 1].Attack(orc.Warriors[i], orc, elv);
                         }
                         else
                         {
                             if (elv.Warriors.Count != 0)
                             {
-                                elv.Warriors[0].Attack(orc.Warriors[i]);
+                                elv.Warriors[0].Attack(orc.Warriors[i], orc, elv);
                             }
                             else
                             {
@@ -68,7 +68,7 @@ namespace GameOfWar
                     }
                     else
                     {
-                        elv.Warriors[i].Attack(orc.Warriors[i]);
+                        elv.Warriors[i].Attack(orc.Warriors[i], orc, elv);
                     }
 
                     if (orc.Warriors[i].Health <= 0)
@@ -95,18 +95,21 @@ namespace GameOfWar
         /// </summary>
         public void PVP()
         {
-            Warrior wr1 = GetRandomWarrior(Orcs);
-            Warrior wr2 = GetRandomWarrior(Elves);
+            Squad orc = Orcs.GetRandomSquad();
+            Squad elv = Elves.GetRandomSquad();
+
+            Warrior wr1 = orc.GetRandomWarrior();
+            Warrior wr2 = elv.GetRandomWarrior();
             bool who = false;
             while (wr1.Health >= 0 && wr2.Health >= 0)
             {
                 if (who)
                 {
-                    wr1.Attack(wr2);
+                    wr1.Attack(wr2, elv, orc);
                 }
                 else
                 {
-                    wr2.Attack(wr1);
+                    wr2.Attack(wr1, orc, elv);
                 }
 
                 who = !who;

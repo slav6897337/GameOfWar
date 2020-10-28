@@ -12,6 +12,8 @@ namespace GameOfWar
     /// </summary>
     public class Squad
     {
+        private Random rand = new Random();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Squad"/> class.
         /// </summary>
@@ -20,7 +22,7 @@ namespace GameOfWar
         public Squad(string nameSquad, int quantityWarriors)
         {
             NameSquad = nameSquad;
-            Random rand = new Random();
+
             int temp = rand.Next(0, quantityWarriors);
             int bers = temp;
             int prist = temp;
@@ -92,6 +94,15 @@ namespace GameOfWar
             }
 
             Console.WriteLine();
+        }
+
+         /// <summary>
+        /// Gets random warrior in squad.
+        /// </summary>
+        /// <returns>Warrior.</returns>
+        public Warrior GetRandomWarrior()
+        {
+            return Warriors[rand.Next(0, Warriors.Count - 1)];
         }
     }
 }
