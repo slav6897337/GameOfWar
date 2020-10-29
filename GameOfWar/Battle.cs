@@ -35,13 +35,58 @@ namespace GameOfWar
         public Fraction Elves { get; set; }
 
         /// <summary>
+        /// Method Battle Fraction Vs Fraction.
+        /// </summary>
+        public void BattleFractionVsFraction()
+        {
+            Squad s1 = Orcs.GetRandomSquad();
+            Squad s2 = Elves.GetRandomSquad();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine($"\t\tThe firs battle between {Orcs.NameFraction} Squad: {s1.NameSquad} and {Elves.NameFraction} Squad: {s2.NameSquad}");
+            Squad s3 = BattleSquadVsSquad(s1, s2);
+
+            while (Orcs.Squads.Count != 0 && Elves.Squads.Count != 0)
+            {
+                Console.WriteLine("\nNext Battle\n");
+                if (s1 == s3)
+                {
+                    s2 = Elves.GetRandomSquad();
+                }
+                else if (s2 == s3)
+                {
+                    s1 = Orcs.GetRandomSquad();
+                }
+
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine($"\t\tThe second battle between {Orcs.NameFraction} Squad: {s1.NameSquad} and {Elves.NameFraction} Squad: {s2.NameSquad}");
+                s3 = BattleSquadVsSquad(s1, s2);
+            }
+
+            if (Elves.Squads.Count > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine($"\tGame OVEwr");
+                Console.WriteLine("\nElves WIN");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine($"\tGame OVEwr");
+                Console.WriteLine("\nOrcs WIN");
+                Console.ResetColor();
+            }
+
+        }
+
+        /// <summary>
         /// Method Battle Squad Vs Squad.
         /// </summary>
-        public void BattleSquadVsSquad()
+        /// <param name="orc">First squad.</param>
+        /// <param name="elv">Second squad.</param>
+        /// <returns>Squad Winner.</returns>
+        public Squad BattleSquadVsSquad(Squad orc, Squad elv)
         {
-            Squad orc = Orcs.GetRandomSquad();
-            Squad elv = Elves.GetRandomSquad();
-
             while (orc.Warriors.Count > 0 && elv.Warriors.Count > 0)
             {
                 for (int i = 0; i < orc.Warriors.Count && i < elv.Warriors.Count; i++)
@@ -80,13 +125,17 @@ namespace GameOfWar
 
             if (elv.Warriors.Count > 0)
             {
+                LostSquad(orc, Orcs);
                 Console.WriteLine("\nElves WIN \nheroes left:");
                 elv.Report();
+                return elv;
             }
             else
             {
+                LostSquad(elv, Elves);
                 Console.WriteLine("\nOrcs WIN \nheroes left:");
                 orc.Report();
+                return orc;
             }
         }
 
@@ -158,6 +207,26 @@ namespace GameOfWar
             int squadsIndex = rand.Next(0, 1);
             int warriorsIndex = rand.Next(0, fraction.Squads[squadsIndex].Warriors.Count);
             return fraction.Squads[squadsIndex].Warriors[warriorsIndex];
+        }
+
+        /// <summary>
+        /// Method remove Squad.
+        /// </summary>
+        /// <param name="sq">Squad remove.</param>
+        /// <param name="fraction">Fraction who lost warrior.</param>
+        public void LostSquad(Squad sq, Fraction fraction)
+        {
+            foreach (var squad in fraction.Squads)
+            {
+                if (squad == sq)
+                {
+                    fraction.Squads.Remove(sq);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{fraction.NameFraction} lost squad {sq.NameSquad}");
+                    Console.ResetColor();
+                    return;
+                }
+            }
         }
     }
 }

@@ -27,12 +27,13 @@ namespace GameOfWar
         /// <param name="yourSquad">Squad in which consist.</param>
         public override void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
-            Console.WriteLine("Berserk");
             base.Attack(war, enemySquad, yourSquad);
 
             Warrior war2 = enemySquad.GetRandomWarrior();
             if (war2.Health <= 10)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("Berserk Use ability");
                 base.Attack(war2, enemySquad, yourSquad);
             }
         }

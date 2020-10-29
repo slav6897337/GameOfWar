@@ -13,17 +13,16 @@ namespace GameOfWar
     public class Warrior
     {
         private static byte counter = 0;
+        private Random rand = new Random();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Warrior"/> class.
         /// </summary>
         public Warrior()
         {
-            Random rnd = new Random();
-
-            Health = 50 + rnd.Next(1, 30);
-            AttackStrong = 6 + rnd.Next(1, 6);
-            Strong = 1 + rnd.Next(0, 4);
+            Health = 50 + rand.Next(1, 30);
+            AttackStrong = 6 + rand.Next(1, 6);
+            Strong = 1 + rand.Next(0, 4);
             Name = GetNameWarior();
         }
 
@@ -63,7 +62,6 @@ namespace GameOfWar
         /// <param name="yourSquad">Squad in which consist.</param>
         public virtual void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
-            Random rand = new Random();
             int damage = rand.Next(1, AttackStrong) + Strong;
             if (war is ShieldWarrior shieldWarrior)
             {
@@ -71,6 +69,8 @@ namespace GameOfWar
                 {
                     war.Health += damage;
                     shieldWarrior.State = false;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Warrior Use ability Shield");
                 }
             }
 
@@ -109,6 +109,7 @@ namespace GameOfWar
                 counter = 0;
             }
 
+            sr.Close();
             return temp;
         }
     }

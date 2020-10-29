@@ -29,7 +29,6 @@ namespace GameOfWar
         /// <param name="yourSquad">Squad in which consist.</param>
         public override void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
-            Console.WriteLine("Mag");
             if (counter != 0)
             {
                 counter = counter == 3 ? (byte)0 : (byte)(counter + 1);
@@ -47,6 +46,8 @@ namespace GameOfWar
                     count++;
                 }
 
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Mag attack catfish weak enemy");
                 base.Attack(enemySquad.Warriors[wariorCount], enemySquad, yourSquad);
             }
             else
@@ -60,34 +61,42 @@ namespace GameOfWar
                         {
                             break;
                         }
+                    }
 
-                        if (i == 0)
-                        {
-                            base.Attack(enemySquad.Warriors[0], enemySquad, yourSquad);
-                            base.Attack(enemySquad.Warriors[1], enemySquad, yourSquad);
-                            base.Attack(enemySquad.Warriors[2], enemySquad, yourSquad);
-                            counter++;
-                        }
-                        else if (i == enemySquad.Warriors.Count - 1)
-                        {
-                            base.Attack(enemySquad.Warriors[i], enemySquad, yourSquad);
-                            base.Attack(enemySquad.Warriors[i - 1], enemySquad, yourSquad);
-                            base.Attack(enemySquad.Warriors[i - 2], enemySquad, yourSquad);
-                            counter++;
-                        }
-                        else
-                        {
-                            base.Attack(enemySquad.Warriors[i], enemySquad, yourSquad);
-                            base.Attack(enemySquad.Warriors[i - 1], enemySquad, yourSquad);
-                            base.Attack(enemySquad.Warriors[i + 1], enemySquad, yourSquad);
-                            counter++;
-                        }
+                    if (i == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Mag use fireball");
+                        base.Attack(enemySquad.Warriors[0], enemySquad, yourSquad);
+                        base.Attack(enemySquad.Warriors[1], enemySquad, yourSquad);
+                        base.Attack(enemySquad.Warriors[2], enemySquad, yourSquad);
+                        counter++;
+                    }
+                    else if (i == enemySquad.Warriors.Count - 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Mag use fireball");
+                        base.Attack(enemySquad.Warriors[i], enemySquad, yourSquad);
+                        base.Attack(enemySquad.Warriors[i - 1], enemySquad, yourSquad);
+                        base.Attack(enemySquad.Warriors[i - 2], enemySquad, yourSquad);
+                        counter++;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Mag use fireball");
+                        base.Attack(enemySquad.Warriors[i], enemySquad, yourSquad);
+                        base.Attack(enemySquad.Warriors[i - 1], enemySquad, yourSquad);
+                        base.Attack(enemySquad.Warriors[i + 1], enemySquad, yourSquad);
+                        counter++;
                     }
                 }
                 else
                 {
                     foreach (var warrior in enemySquad.Warriors)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Mag use fireball from lasts enemy");
                         base.Attack(warrior, enemySquad, yourSquad);
                     }
 

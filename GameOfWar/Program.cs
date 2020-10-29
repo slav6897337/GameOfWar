@@ -24,7 +24,7 @@ namespace GameOfWar
             int numberWarriors = int.Parse(Console.ReadLine());
 
             Battle battle = new Battle(numberSquards, numberWarriors);
-            battle.BattleSquadVsSquad();
+            battle.BattleFractionVsFraction();
            /* battle.Elves.Report();
             battle.Orcs.Report();*/
         }

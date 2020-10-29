@@ -91,6 +91,10 @@ namespace GameOfWar
             foreach (var warior in Warriors)
             {
                 warior.Report();
+                if (warior is ShieldWarrior wr)
+                {
+                    wr.State = true;
+                }
             }
 
             Console.WriteLine();

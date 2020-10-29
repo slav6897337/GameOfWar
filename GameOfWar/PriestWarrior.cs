@@ -29,11 +29,12 @@ namespace GameOfWar
         /// <param name="yourSquad">Squad in which consist.</param>
         public override void Attack(Warrior war, Squad enemySquad, Squad yourSquad)
         {
-            Console.WriteLine("Priest");
             base.Attack(war, enemySquad, yourSquad);
             if (counter != 0)
             {
                 counter = counter == 3 ? (byte)0 : (byte)(counter + 1);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Priest reset");
             }
             else
             {
@@ -53,8 +54,10 @@ namespace GameOfWar
 
                 if (minHeath < 20)
                 {
-                    yourSquad.Warriors[warCount].Health += 60;
+                    yourSquad.Warriors[warCount].Health += 40;
                     counter++;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Priest Regained health {yourSquad.Warriors[warCount].Name}");
                 }
             }
         }
